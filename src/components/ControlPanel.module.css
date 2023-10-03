@@ -12,3 +12,8 @@
   border-radius: 6px;
   border: 2px solid black;
 }
+
+.win {
+  margin-top: 18px;
+  text-align: center;
+}
