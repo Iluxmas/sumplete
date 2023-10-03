@@ -2,6 +2,7 @@ const generateItem = () => ({
   value: 1 + Math.floor(Math.random() * 9),
   status: 'none',
   used: Math.random() > 0.65 ? true : false,
+  error: false,
 });
 
 const generateRow = () =>
