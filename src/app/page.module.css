@@ -16,9 +16,9 @@
 }
 
 .container {
-display: flex;
-flex-direction: column;
-gap: 24px;  
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
 .subheader {
@@ -26,11 +26,10 @@ gap: 24px;
   text-align: center;
 }
 
-.header{
+.header {
   font-size: 62px;
   text-align: center;
   margin: 14px 0;
-
 }
 
 .button_container {

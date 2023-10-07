@@ -1,10 +1,8 @@
 'use client';
 
-import React, { useCallback, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectPuzzleModule } from '@/redux/features/cell/selector';
+import React, { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import { puzzleActions } from '@/redux/features/cell';
-import { generateGrid } from '@/utils/puzzle';
 import { CellState, PuzzleState } from '@/types/store';
 import Cell from './Cell';
 
@@ -22,13 +20,6 @@ interface GridProps {
 }
 function Grid({ puzzle, isCompleted }: GridProps) {
   const dispatch = useDispatch();
-  // const puzzle = useSelector((state) => selectPuzzleModule(state));
-
-  useEffect(() => {
-    // const grid = generateGrid();
-    // localStorage.setItem('puzzle', JSON.stringify({ data: grid }));
-    // dispatch(puzzleActions.init(grid));
-  }, []);
 
   if (puzzle) {
     localStorage.setItem('puzzle', JSON.stringify({ data: puzzle }));
@@ -55,6 +46,7 @@ function Grid({ puzzle, isCompleted }: GridProps) {
     for (let singleRow of puzzle) {
       const columnSum = singleRow.reduce((acc, cur) => (cur.used ? acc + cur.value : acc), 0);
       const unCrossedSum = singleRow.reduce((acc, cur) => (cur.status !== 'crossed' ? acc + cur.value : acc), 0);
+
       columnA.push({ value: columnSum, status: columnSum === unCrossedSum ? 'done' : 'undone' });
     }
   }
@@ -88,10 +80,8 @@ function Grid({ puzzle, isCompleted }: GridProps) {
       }
 
       if (selectedCount === columnA[index].value) {
-        // mark none as crossed
         dispatch(puzzleActions.answerClick({ i: index, isColumn: isColumn, mark: 'crossed' }));
       } else if (selectedCount + noneCount === columnA[index].value) {
-        // mark none as selected
         dispatch(puzzleActions.answerClick({ i: index, isColumn: isColumn, mark: 'selected' }));
       }
     } else {
@@ -108,16 +98,12 @@ function Grid({ puzzle, isCompleted }: GridProps) {
       }
 
       if (selectedCount === rowA[index].value) {
-        // mark none as crossed
         dispatch(puzzleActions.answerClick({ i: index, isColumn: isColumn, mark: 'crossed' }));
       } else if (selectedCount + noneCount === rowA[index].value) {
-        // mark none as selected
         dispatch(puzzleActions.answerClick({ i: index, isColumn: isColumn, mark: 'selected' }));
       }
     }
   };
-
-  // const handleColumnClick = () => {};
 
   return (
     <div className={styles.grid_container}>
