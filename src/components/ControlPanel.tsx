@@ -6,15 +6,23 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectPuzzleModule } from '@/redux/features/cell/selector';
 
 import styles from './ControlPanel.module.css';
+import { generateGrid } from '@/utils/puzzle';
 
 interface ControlPanelProps {
-  onNewGame: () => void;
   isCompleted: boolean;
   hasErrors: boolean;
 }
 
-function ControlPanel({ onNewGame, isCompleted, hasErrors }: ControlPanelProps) {
+function ControlPanel({ isCompleted, hasErrors }: ControlPanelProps) {
   const dispatch = useDispatch();
+
+  const handleNewGame = () => {
+    const grid = generateGrid();
+    // if (typeof window !== 'undefined') {
+    window.localStorage.setItem('puzzle', JSON.stringify({ data: grid }));
+    // }
+    dispatch(puzzleActions.init(grid));
+  };
 
   return (
     <div>
@@ -30,7 +38,7 @@ function ControlPanel({ onNewGame, isCompleted, hasErrors }: ControlPanelProps) 
             </button>
           </>
         )}
-        <button className={styles.button_new} onClick={onNewGame}>
+        <button className={styles.button_new} onClick={handleNewGame}>
           New Puzzle
         </button>
       </div>

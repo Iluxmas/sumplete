@@ -21,7 +21,7 @@ interface GridProps {
 function Grid({ puzzle, isCompleted }: GridProps) {
   const dispatch = useDispatch();
 
-  if (puzzle) {
+  if (puzzle && typeof window !== 'undefined') {
     localStorage.setItem('puzzle', JSON.stringify({ data: puzzle }));
   }
 
