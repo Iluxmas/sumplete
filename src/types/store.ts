@@ -1,8 +1,8 @@
-type PuzzleState = CellState[][]
+export type PuzzleState = CellState[][]
 
-interface CellState {
-  value: Number;
+export interface CellState {
+  value: number;
   status: 'selected' | 'crossed' | 'none' ;
-  used: Boolean;
-  error: Boolean;
+  used: boolean;
+  error: boolean;
 }

@@ -43,9 +43,33 @@ export const puzzleSlice = createSlice({
     },
   
     init: (state, { payload }: PayloadAction<PuzzleState>) => {
-      // what should i write here?
       return payload;
     },
+
+    answerClick: (state, {payload}: PayloadAction<{i: number, isColumn: boolean, mark: 'crossed' | 'selected'}>) => {
+      for (let j = 0; j < state[payload.i].length; j++) {
+        if (payload.isColumn) {
+          if (state[payload.i][j].status === 'none') {
+            state[payload.i][j].status = payload.mark;
+          }
+        } else { 
+          if (state[j][payload.i].status === 'none') {
+            state[j][payload.i].status = payload.mark;
+          } 
+        }
+      }
+    },
+
+    removeMistakes: (state) => {
+      for (let i = 0; i < state.length; i++) {
+        for (let j = 0; j < state[i].length; j++) {
+          if (state[i][j].error) {
+            state[i][j].status = 'none';
+            state[i][j].error = false;
+          }
+        }
+      }
+    }
   },
 });
 

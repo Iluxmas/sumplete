@@ -3,17 +3,27 @@
   gap: 12px;
   align-items: center;
   /* justify-content: space-between; */
+  margin-bottom: 12px;
   width: calc(100% - 42px);
 }
 
 .button {
   background-color: #ddd;
-  padding: 3px 6px;
+  padding: 4px 10px;
   border-radius: 6px;
-  border: 2px solid black;
+  border: 2px solid #333;
+}
+
+.button_new {
+  color: #f5f5f5;
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 2px solid #333;
+  background-color: #333;
 }
 
 .win {
-  margin-top: 18px;
-  text-align: center;
+  margin-bottom: 18px;
+  /* text-align: center; */
+  font-weight: 600;
 }

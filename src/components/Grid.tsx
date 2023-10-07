@@ -2,12 +2,13 @@
 
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { puzzleActions } from '@/redux/features/cell';
 import { selectPuzzleModule } from '@/redux/features/cell/selector';
+import { puzzleActions } from '@/redux/features/cell';
 import { generateGrid } from '@/utils/puzzle';
+import { CellState, PuzzleState } from '@/types/store';
+import Cell from './Cell';
 
 import styles from './Grid.module.css';
-import Cell from './Cell';
 
 type AnswerStatus = 'done' | 'undone';
 
@@ -15,16 +16,23 @@ interface ArrayAnswer {
   value: number;
   status: AnswerStatus;
 }
-
-function Grid() {
+interface GridProps {
+  puzzle: PuzzleState;
+  isCompleted: boolean;
+}
+function Grid({ puzzle, isCompleted }: GridProps) {
   const dispatch = useDispatch();
-  const puzzle = useSelector((state) => selectPuzzleModule(state));
+  // const puzzle = useSelector((state) => selectPuzzleModule(state));
 
   useEffect(() => {
-    const grid = generateGrid();
-
-    dispatch(puzzleActions.init(grid));
+    // const grid = generateGrid();
+    // localStorage.setItem('puzzle', JSON.stringify({ data: grid }));
+    // dispatch(puzzleActions.init(grid));
   }, []);
+
+  if (puzzle) {
+    localStorage.setItem('puzzle', JSON.stringify({ data: puzzle }));
+  }
 
   const columnA: ArrayAnswer[] = [];
   const rowA: ArrayAnswer[] = [];
@@ -51,16 +59,6 @@ function Grid() {
     }
   }
 
-  let isCompleted = true;
-  // puzzle.every(row => row.every(element => ))
-  for (let i = 0; i < puzzle.length; i++) {
-    for (let j = 0; j < puzzle.length; j++) {
-      if (!puzzle[j][i]?.used && puzzle[j][i]?.status !== 'crossed') {
-        isCompleted = false;
-      }
-    }
-  }
-
   const handleCellClick = useCallback(
     (i: number, idx: number) => {
       if (isCompleted) {
@@ -71,6 +69,56 @@ function Grid() {
     [dispatch, isCompleted]
   );
 
+  const handleAnswerClick = (index: number, isColumn = false) => {
+    let crossedCount = 0;
+    let selectedCount = 0;
+    let noneCount = 0;
+
+    if (isColumn) {
+      for (let i = 0; i < puzzle[index].length; i++) {
+        if (puzzle[index][i].status === 'crossed') {
+          crossedCount += puzzle[index][i].value;
+        }
+        if (puzzle[index][i].status === 'selected') {
+          selectedCount += puzzle[index][i].value;
+        }
+        if (puzzle[index][i].status === 'none') {
+          noneCount += puzzle[index][i].value;
+        }
+      }
+
+      if (selectedCount === columnA[index].value) {
+        // mark none as crossed
+        dispatch(puzzleActions.answerClick({ i: index, isColumn: isColumn, mark: 'crossed' }));
+      } else if (selectedCount + noneCount === columnA[index].value) {
+        // mark none as selected
+        dispatch(puzzleActions.answerClick({ i: index, isColumn: isColumn, mark: 'selected' }));
+      }
+    } else {
+      for (let i = 0; i < puzzle[index].length; i++) {
+        if (puzzle[i][index].status === 'crossed') {
+          crossedCount += puzzle[i][index].value;
+        }
+        if (puzzle[i][index].status === 'selected') {
+          selectedCount += puzzle[i][index].value;
+        }
+        if (puzzle[i][index].status === 'none') {
+          noneCount += puzzle[i][index].value;
+        }
+      }
+
+      if (selectedCount === rowA[index].value) {
+        // mark none as crossed
+        dispatch(puzzleActions.answerClick({ i: index, isColumn: isColumn, mark: 'crossed' }));
+      } else if (selectedCount + noneCount === rowA[index].value) {
+        // mark none as selected
+        dispatch(puzzleActions.answerClick({ i: index, isColumn: isColumn, mark: 'selected' }));
+      }
+    }
+  };
+
+  // const handleColumnClick = () => {};
+
   return (
     <div className={styles.grid_container}>
       {puzzle?.map((rowData: CellState[], i: number) => (
@@ -78,14 +126,22 @@ function Grid() {
           {rowData.map((cellData, idx: number) => (
             <Cell key={idx} data={cellData} onCellClick={() => handleCellClick(i, idx)} />
           ))}
-          <div key={i} className={[styles.solution, styles[`solution_${columnA[i]?.status}`]].join(' ')}>
+          <div
+            key={i}
+            className={[styles.solution, styles[`solution_${columnA[i]?.status}`]].join(' ')}
+            onClick={() => handleAnswerClick(i, true)}
+          >
             {columnA[i]?.value}
           </div>
         </div>
       ))}
       <div className={styles.row}>
         {rowA.map((el, idx, a) => (
-          <div key={idx} className={[styles.solution, styles[`solution_${el.status}`]].join(' ')}>
+          <div
+            key={idx}
+            className={[styles.solution, styles[`solution_${el.status}`]].join(' ')}
+            onClick={() => handleAnswerClick(idx, false)}
+          >
             {el.value}
           </div>
         ))}
