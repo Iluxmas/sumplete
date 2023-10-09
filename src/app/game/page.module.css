@@ -1,11 +1,24 @@
+.page {
+  min-height: 100vh;
+}
+
+.header {
+  width: 100%;
+}
+
+.header_text {
+  text-align: center;
+  font-size: 22px;
+  padding-top: 42px;
+  padding-bottom: 24px;
+}
+
 .main {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 6rem;
-  min-height: 100vh;
-  background-color: #eee;
+  padding: 0 3rem;
 }
 
 .container {

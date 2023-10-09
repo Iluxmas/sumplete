@@ -1,0 +1,20 @@
+.button {
+  padding: 4px 10px;
+  border: 2px solid #333;
+  border-radius: 6px;
+}
+
+.button:not(.button_action):hover {
+  background-color: #ccc;
+  cursor: pointer;
+}
+
+.button_default {  
+  color: #333;
+  background-color: #ddd;
+}
+
+.button_action {
+  color: #f5f5f5;
+  background-color: #333;
+}

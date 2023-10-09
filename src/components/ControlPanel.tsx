@@ -8,6 +8,7 @@ import { selectPuzzleModule } from '@/redux/features/cell/selector';
 import styles from './ControlPanel.module.css';
 import { generateGrid } from '@/utils/puzzle';
 import Popup from './Popup';
+import Button from './Button';
 
 interface ControlPanelProps {
   isCompleted: boolean;
@@ -32,37 +33,23 @@ function ControlPanel({ isCompleted, hasErrors }: ControlPanelProps) {
   return (
     <div>
       {isPopupOpened && <Popup onCancel={() => setIspopupOpened(false)} onConfirm={handleConfirm} />}
-      {isCompleted && <p className={styles.win}>PUZZLE SOLVED 👑</p>}
-      <div className={styles.container}>
-        {!isCompleted && (
-          <>
-            <button className={styles.button} onClick={() => dispatch(puzzleActions.check())}>
-              Check
-            </button>
-            <button className={styles.button} onClick={() => dispatch(puzzleActions.clear())}>
-              Clear
-            </button>
-            <button className={styles.button} onClick={() => dispatch(puzzleActions.hint())}>
-              Hint
-            </button>
-            <button className={styles.button} onClick={() => setIspopupOpened(true)}>
-              Reveal
-            </button>
-          </>
-        )}
-      </div>
-      <div className={styles.container}>
-        <button className={styles.button_new} onClick={handleNewGame}>
-          New Puzzle
-        </button>
-      </div>
-      {hasErrors && (
+      {isCompleted && <p className={styles.win}>👑 PUZZLE SOLVED 👑</p>}
+      {!isCompleted && (
         <div className={styles.container}>
-          <button className={styles.button} onClick={() => dispatch(puzzleActions.removeMistakes())}>
-            Remove Mistakes
-          </button>
+          <Button clickHandler={() => dispatch(puzzleActions.check())} text='Check' />
+          <Button clickHandler={() => dispatch(puzzleActions.clear())} text='Clear' />
+          <Button clickHandler={() => dispatch(puzzleActions.hint())} text='Hint' />
+          <Button clickHandler={() => setIspopupOpened(true)} text='Reveal' />
         </div>
       )}
+      {hasErrors && (
+        <div className={styles.container}>
+          <Button clickHandler={() => dispatch(puzzleActions.removeMistakes())} text='Remove Mistakes' />
+        </div>
+      )}
+      <div className={styles.container}>
+        <Button clickHandler={handleNewGame} text='New Puzzle' type='action' />
+      </div>
     </div>
   );
 }

@@ -9,6 +9,7 @@ import Spinner from '@/components/Spinner';
 import { PuzzleState } from '@/types/store';
 
 import styles from './page.module.css';
+import Button from '@/components/Button';
 
 export default function Home() {
   const [savedPuzzle, setSavedPuzzle] = useState<PuzzleState | null>(null);
@@ -54,14 +55,8 @@ export default function Home() {
           <Spinner />
         ) : (
           <>
-            {!!savedPuzzle && (
-              <button className={styles.button} onClick={handleContinueGame}>
-                Continue saved game
-              </button>
-            )}
-            <button className={styles.button} onClick={handleNewGame}>
-              New Game
-            </button>
+            {!!savedPuzzle && <Button text='Continue saved game' clickHandler={handleContinueGame} type='default' />}
+            <Button text='New Game' clickHandler={handleNewGame} type='default' />
           </>
         )}
       </div>
