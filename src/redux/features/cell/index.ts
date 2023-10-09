@@ -60,6 +60,34 @@ export const puzzleSlice = createSlice({
       }
     },
 
+    hint: (state) => {
+      const array = [];
+
+      for (let i = 0; i < state.length; i++) {
+        for (let j = 0; j < state[i].length; j++) {
+          if (!state[i][j].used && state[i][j].status === 'none') {
+            array.push([i, j])
+          } 
+        }
+      }
+
+      const [randI, randJ] = array[Math.floor(array.length * Math.random())];
+
+      state[randI][randJ].status = 'crossed';
+    },
+
+    reveal: (state) => {
+      for (let i = 0; i < state.length; i++) {
+        for (let j = 0; j < state[i].length; j++) {
+          if (state[i][j].used) {
+            state[i][j].status = 'selected';
+          } else {
+            state[i][j].status = 'crossed';
+          }
+        }
+      }
+    },
+
     removeMistakes: (state) => {
       for (let i = 0; i < state.length; i++) {
         for (let j = 0; j < state[i].length; j++) {
