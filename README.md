@@ -1,36 +1,24 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Sumplete game
 
-## Getting Started
+This simple game is a combination of Sudoku and Japanese crossword puzzles. The goal is to use the numbers in the grid to ensure that the sum of the remaining numbers in each row and column equals the specified value.
 
-First, run the development server:
+## Install 
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+To run the game, follow these commands:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Install dependencies using `npm install` or `yarn`.
+- Build the game with `npm build`.
+- Start the game using `npm start`.
+- Open [http://localhost:3000](http://localhost:3000) in your web browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Alternatively, you can run the game in a container using `docker-compose up`, and then access the game at [http://localhost](http://localhost) in your web browser.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Features
 
-## Learn More
+You can see preview below
 
-To learn more about Next.js, take a look at the following resources:
+![Demo1](https://github.com/Iluxmas/sumplete/blob/main/public/demo1.gif)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+![Demo2](https://github.com/Iluxmas/sumplete/blob/main/public/demo2.gif)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+![Demo3](https://github.com/Iluxmas/sumplete/blob/main/public/demo3.gif)
