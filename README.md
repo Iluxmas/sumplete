@@ -19,6 +19,4 @@ You can see preview below
 
 ![Demo1](https://github.com/Iluxmas/sumplete/blob/main/public/demo1.gif)
 
-![Demo2](https://github.com/Iluxmas/sumplete/blob/main/public/demo2.gif)
-
 ![Demo3](https://github.com/Iluxmas/sumplete/blob/main/public/demo3.gif)
