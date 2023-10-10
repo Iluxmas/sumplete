@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import { selectPuzzleModule } from '@/redux/features/cell/selector';
@@ -12,10 +13,13 @@ import styles from './page.module.css';
 export default function Home() {
   const puzzle = useSelector((state: { puzzle: PuzzleState }) => selectPuzzleModule(state));
   const router = useRouter();
-  console.log(puzzle);
-  if (!puzzle[0].length) {
-    router.push('/', { scroll: false });
-  }
+
+  useEffect(() => {
+    if (!puzzle[0].length) {
+      router.push('/');
+    }
+  }, []);
+
   let isCompleted = true;
   let hasErrors = false;
 
@@ -37,8 +41,8 @@ export default function Home() {
       </header>
       <main className={styles.main}>
         <div className={styles.container}>
-          <Grid puzzle={puzzle} isCompleted={isCompleted}></Grid>
-          <ControlPanel isCompleted={isCompleted} hasErrors={hasErrors}></ControlPanel>
+          <Grid puzzle={puzzle} isCompleted={isCompleted} />
+          <ControlPanel isCompleted={isCompleted} hasErrors={hasErrors} />
         </div>
       </main>
     </div>
