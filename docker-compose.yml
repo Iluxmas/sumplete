@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  nginx:
+    image: nginx
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+
+  app:
+    build: ./
+    container_name: app  
