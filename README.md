@@ -15,6 +15,12 @@ Alternatively, you can run the game in a container using `docker-compose up`, an
 
 ## Features
 
+- Save unfinished games in local storage for later continuation.
+- Quickly cross all unused numbers or select all remaining numbers by pressing the line sum number.
+- Press the "Check" button to verify your solution and highlight cells with incorrect marks.
+- Press the "Hint" button to reveal one random number.
+- Press the "Reveal" button to view the solution.
+
 You can see preview below
 
 ![Demo1](https://github.com/Iluxmas/sumplete/blob/main/public/demo1.gif)
