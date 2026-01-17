@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "vitest"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.6",
@@ -19,8 +20,12 @@
     "@types/node": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest",
+    "@vitejs/plugin-react": "^5.1.2",
     "eslint": "latest",
     "eslint-config-next": "latest",
-    "typescript": "latest"
+    "jsdom": "^27.0.1",
+    "typescript": "latest",
+    "vite-tsconfig-paths": "^6.0.4",
+    "vitest": "^3.2.4"
   }
 }
