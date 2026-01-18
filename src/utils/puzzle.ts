@@ -1,10 +1,14 @@
 import { CellState, PuzzleState } from '@/types/store';
 
-const getLimit = () => {
-  return [0.3, 0.4, 0.5, 0.6, 0.7][Math.floor(Math.random() * 5)];
+
+export const getLimit = () => {
+  const probabilities = [0.3, 0.4, 0.5, 0.6, 0.7];
+
+  const randomIndex = Math.floor(Math.random() * probabilities.length);
+  return probabilities[randomIndex];
 };
 
-const generateItem = (): CellState => {
+export const generateItem = (): CellState => {
   const limit = getLimit();
 
   return {
@@ -15,7 +19,7 @@ const generateItem = (): CellState => {
   };
 };
 
-const generateRow = (): CellState[] =>
+export const generateRow = (): CellState[] =>
   Array(8)
     .fill(1)
     .map((_) => generateItem());
